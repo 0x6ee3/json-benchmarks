@@ -10,6 +10,7 @@ Gobal:
 
 Test specific:
 - jdk
+- sbt
 - nodejs
 - go
 
