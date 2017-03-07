@@ -1,8 +1,8 @@
 #!/bin/bash
 
-TEST_THREADS="4"
-TEST_DURATION="30s"
-TEST_CONCURRENCY=(8 16 32 64 128 256)
+TEST_THREADS="2"
+TEST_DURATION="20s"
+TEST_CONCURRENCY=(32 64 128 256)
 
 mkdir -p reports/
 
@@ -33,9 +33,9 @@ for d in */ ; do
 
         for c in ${TEST_CONCURRENCY[@]}; do
             echo -n "$c"
-            wrk -t $TEST_THREADS -d $TEST_DURATION -c $c http://localhost:8080/ > ../reports/$d-hello-$c.txt
+            wrk -t $TEST_THREADS -d $TEST_DURATION -c $c http://localhost:8000/ > ../reports/$d-hello-$c.txt
             echo -n "."
-            wrk -t $TEST_THREADS -d $TEST_DURATION -c $c http://localhost:8080/json > ../reports/$d-json-$c.txt
+            wrk -t $TEST_THREADS -d $TEST_DURATION -c $c http://localhost:8000/json > ../reports/$d-json-$c.txt
             echo -n ". "
         done
         

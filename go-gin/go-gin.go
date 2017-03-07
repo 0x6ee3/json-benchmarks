@@ -21,5 +21,5 @@ func main() {
 		c.JSON(200, m)
 	})
 
-	router.Run()
+	router.Run(":8000")
 }
