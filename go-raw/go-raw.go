@@ -22,5 +22,5 @@ func serveJson(w http.ResponseWriter, req *http.Request) {
 func main() {
 	http.HandleFunc("/", serveHello)
 	http.HandleFunc("/json", serveJson)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8000", nil)
 }

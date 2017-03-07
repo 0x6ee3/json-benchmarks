@@ -1,2 +1,2 @@
-NODE_ENV=production PORT=8080 node index.js &
+NODE_ENV=production PORT=8000 node index.js &
 echo "$!" > PID
