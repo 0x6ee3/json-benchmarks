@@ -2,5 +2,5 @@ target/
 PID
 node_modules/
 reports/
-.iml
+*.iml
 .idea/

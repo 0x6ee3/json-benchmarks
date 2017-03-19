@@ -1,35 +1,46 @@
 package io.vertx.example;
 
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 
+public class HelloVertx extends AbstractVerticle {
 
-public class HelloVertx {
-    public static void main(String[] args) {
-        HttpServer server = Vertx.vertx().createHttpServer();
-        Router router = Router.router(Vertx.vertx());
+    public static class HelloMessage {
+        public String message;
+    }
 
-        router.route("/hello").handler(context -> {
-            context.response().putHeader("Content-Type", "text/plain");
-            context.response().end("Hello World!");
-        });
+    private Router buildRouter(Vertx vertx) {
+        Router router = Router.router(vertx);
 
         router.route("/json").produces("application/json").handler(context -> {
             HelloMessage msg = new HelloMessage();
             msg.message = "Hello World!";
 
             context.response()
+                .putHeader("Server", "vertx")
                 .putHeader("Content-Type", "application/json")
                 .end(Json.encode(msg));
         });
 
-        server.requestHandler(router::accept).listen(3090);
+        router.route("/").handler(context -> {
+            context.response()
+                .putHeader("Server", "vertx")
+                .putHeader("Content-Type", "text/plain")
+                .end("Hello World!");
+        });
+
+        return router;
     }
 
-    public static class HelloMessage {
-        public String message;
+    @Override
+    public void start(Future<Void> fut) {
+        vertx
+            .createHttpServer()
+            .requestHandler(buildRouter(vertx)::accept)
+            .listen(config().getInteger("http.port", 8080));
     }
 }
 
