@@ -1,0 +1,16 @@
+{
+  "name": "node-micro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro -p ${PORT:-8000} -s",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "micro": "^7.3.3",
+    "microrouter": "^2.1.1"
+  }
+}
